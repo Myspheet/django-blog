@@ -1,0 +1,47 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+  DJANGO: python src/manage.py
+
+tasks:
+  default:
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+  run:
+    desc: Run development server
+    cmds:
+      - "{{.DJANGO}} runserver"
+
+  makemigrations:
+    desc: Create migrations based on model changes
+    cmds:
+      - "{{.DJANGO}} makemigrations"
+
+  migrate:
+    desc: Apply migrations
+    cmds:
+      - "{{.DJANGO}} migrate"
+
+  createsuperuser:
+    desc: Create a Django superuser
+    cmds:
+      - "{{.DJANGO}} createsuperuser"
+
+  shell:
+    desc: Open Django interactive shell
+    cmds:
+      - "{{.DJANGO}} shell"
+
+  test:
+    desc: Run tests
+    cmds:
+      - "{{.DJANGO}} test"
+
+  collectstatic:
+    desc: Collect static files
+    cmds:
+      - "{{.DJANGO}} collectstatic --noinput"
