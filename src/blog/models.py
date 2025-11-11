@@ -10,6 +10,11 @@ class Status(models.TextChoices):
     PUBLISHED = "PB", "Published"
 
 
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status=Status.PUBLISHED)
+
+
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=250)
@@ -26,6 +31,9 @@ class Post(models.Model):
         choices=Status.choices,
         default=Status.DRAFT,
     )
+
+    objects = models.Manager()
+    published = PublishedManager()
 
     class Meta:
         ordering = ["-publish"]
